@@ -255,6 +255,17 @@ func (c conftestEvaluator) Evaluate(ctx context.Context, inputs []string) (Check
 			result.Metadata["collections"] = rule.Collections
 		}
 
+		if !c.isResultIncluded(result) {
+			log.Debugf("Skipping result success: %#v", result)
+			continue
+		}
+
+		// We could call isResultEffective here for the success and skip it if
+		// the rule is not yet effective, if rule.RuleInfo was changed to collect
+		// the effective_on value. Perhaps not important since displaying a
+		// passing result for a rule that will become effective in future could
+		// be considered a feature.
+
 		results[0].Successes = append(results[0].Successes, result)
 	}
 
