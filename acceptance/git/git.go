@@ -33,6 +33,7 @@ import (
 	"math/big"
 	"os"
 	"path"
+	"regexp"
 	"time"
 
 	"github.com/cucumber/godog"
@@ -239,6 +240,12 @@ func createGitRepository(ctx context.Context, repositoryName string, files *godo
 		if err != nil {
 			return err
 		}
+
+		// Replace ${GITHOST} with the real git host.
+		// Used in acceptance/examples/default-policy.yaml
+		// Hopefully a noop for all other files.
+		re := regexp.MustCompile(regexp.QuoteMeta("${GITHOST}"))
+		b = []byte(re.ReplaceAllString(string(b), Host(ctx)))
 
 		err = os.WriteFile(dest, b, 0644)
 		if err != nil {
