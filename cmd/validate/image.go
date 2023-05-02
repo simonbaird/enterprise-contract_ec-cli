@@ -20,6 +20,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"path"
 	"strings"
 	"sync"
 
@@ -27,6 +28,7 @@ import (
 	"github.com/hashicorp/go-multierror"
 	app "github.com/redhat-appstudio/application-api/api/v1alpha1"
 	"github.com/sigstore/cosign/v2/pkg/cosign"
+	log "github.com/sirupsen/logrus"
 	"github.com/spf13/afero"
 	"github.com/spf13/cobra"
 
@@ -34,6 +36,7 @@ import (
 	"github.com/enterprise-contract/ec-cli/internal/format"
 	"github.com/enterprise-contract/ec-cli/internal/output"
 	"github.com/enterprise-contract/ec-cli/internal/policy"
+	"github.com/enterprise-contract/ec-cli/internal/policy/source"
 	"github.com/enterprise-contract/ec-cli/internal/utils"
 )
 
@@ -61,6 +64,7 @@ func validateImageCmd(validate imageValidationFunc) *cobra.Command {
 		strict                      bool
 	}{
 
+		// Default policy from an ECP cluster resource
 		policyConfiguration: "enterprise-contract-service/default",
 	}
 	cmd := &cobra.Command{
@@ -168,6 +172,58 @@ func validateImageCmd(validate imageValidationFunc) *cobra.Command {
 				IssuerRegExp:  data.certificateOIDCIssuerRegExp,
 				Subject:       data.certificateIdentity,
 				SubjectRegExp: data.certificateIdentityRegExp,
+			}
+
+			// Check if policyConfiguration is a git url, if so then we need to download the config
+			if strings.HasPrefix(data.policyConfiguration, "git::") || strings.HasPrefix(data.policyConfiguration, "github.com/") || strings.HasPrefix(data.policyConfiguration, "https://github.com/") {
+				log.Debugf("Loading policy configuration from git url %s", data.policyConfiguration)
+
+				// Create a temporary dir to download the config. This will be a different dir
+				// to the workdir used later for the policy sources, but It doesn't matter much
+				// because this dir is not needed after the config file is read.
+				//
+				fs := utils.FS(cmd.Context())
+				tmpDir, err := utils.CreateWorkDir(fs)
+				if err != nil {
+					log.Debug("Failed to create tmp config dir!")
+					allErrors = multierror.Append(allErrors, err)
+					return
+				}
+				defer utils.CleanupWorkDir(fs, tmpDir)
+
+				// Now download the config
+				c := source.PolicyUrl{
+					Url:  data.policyConfiguration,
+					Kind: source.ConfigKind,
+				}
+				configDir, err := c.GetPolicy(ctx, tmpDir, false)
+				if err != nil {
+					log.Debugf("Failed to download config from %s", c.Url)
+					allErrors = multierror.Append(allErrors, err)
+					return
+				}
+				log.Debugf("Downloaded config from %s to %s", c.Url, configDir)
+
+				// Currently the policy needs to be in a file called "policy.yaml" in the root
+				// of whatever was downloaded. Todo maybe: Use a policy.json or policy.yml file
+				// if it's there, or use any yaml or json file, as long as there's only one.
+				//
+				configFile := path.Join(configDir, "policy.yaml")
+				fileExists, err := afero.Exists(fs, configFile)
+				if err != nil {
+					log.Debugf("Error checking if file %s exists", configFile)
+					allErrors = multierror.Append(allErrors, err)
+					return
+				}
+				if !fileExists {
+					err = fmt.Errorf("The config source %s did not contain a policy.yaml file", data.policyConfiguration)
+					allErrors = multierror.Append(allErrors, err)
+					return
+				}
+
+				// The code directly below this knows how to read policy from a file. If we change the
+				// value of data.policyConfiguration to the newly downloaded file we can make use of that.
+				data.policyConfiguration = configFile
 			}
 
 			// Check if policyConfiguration is a file path, if so, we read it into the var data.policyConfiguration
