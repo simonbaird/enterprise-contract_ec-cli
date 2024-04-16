@@ -155,6 +155,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git tag -a -f -m 'Development snapshot' snapshot
+          git tag -a -m 'Version tag added automatically after snapshot build' $(hack/derive-version.sh)
           git push -f --tags
 
       - name: Release
