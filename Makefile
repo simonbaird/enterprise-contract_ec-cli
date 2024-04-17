@@ -2,7 +2,8 @@ MAKEFLAGS+=-j --no-print-directory
 VERSION_FILE=./VERSION
 VERSION:=$$(hack/derive-version.sh)
 # a list of "dist/ec_{platform}_{arch}" that we support
-ALL_SUPPORTED_OS_ARCH:=$(shell go tool dist list -json|jq -r '.[] | select((.FirstClass == true or .GOARCH == "ppc64le") and .GOARCH != "386") | "dist/ec_\(.GOOS)_\(.GOARCH)"')
+#ALL_SUPPORTED_OS_ARCH:=$(shell go tool dist list -json|jq -r '.[] | select((.FirstClass == true or .GOARCH == "ppc64le") and .GOARCH != "386") | "dist/ec_\(.GOOS)_\(.GOARCH)"')
+ALL_SUPPORTED_OS_ARCH:=dist/ec_linux_amd64
 # a list of image_* targets that we do not support
 UNSUPPORTED_OS_ARCH_IMG:=image_windows_amd64 image_darwin_amd64 image_darwin_arm64 image_linux_arm
 # a list of image_* targets that we do support generated from

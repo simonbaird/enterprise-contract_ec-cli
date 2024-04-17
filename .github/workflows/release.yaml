@@ -113,33 +113,33 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
 
-      - name: Registry login (quay.io/enterprise-contract)
-        run: podman login -u ${{ secrets.BUNDLE_PUSH_USER_EC  }} -p ${{ secrets.BUNDLE_PUSH_PASS_EC }} quay.io
+      #- name: Registry login (quay.io/enterprise-contract)
+      #  run: podman login -u ${{ secrets.BUNDLE_PUSH_USER_EC  }} -p ${{ secrets.BUNDLE_PUSH_PASS_EC }} quay.io
 
-      - name: Create and push image (quay.io/enterprise-contract/ec-cli)
-        run: make dist-image-push IMAGE_TAG=$TAG IMAGE_REPO=$IMAGE_REPO ADD_IMAGE_TAG="snapshot $TAG_TIMESTAMP"
+      #- name: Create and push image (quay.io/enterprise-contract/ec-cli)
+      #  run: make dist-image-push IMAGE_TAG=$TAG IMAGE_REPO=$IMAGE_REPO ADD_IMAGE_TAG="snapshot $TAG_TIMESTAMP"
 
-      - name: Create and push the tekton bundle (quay.io/enterprise-contract/ec-task-bundle)
-        env:
-          TASK_REPO: quay.io/enterprise-contract/ec-task-bundle
-          TASKS: "tasks/verify-enterprise-contract/0.1/verify-enterprise-contract.yaml tasks/verify-definition/0.1/verify-definition.yaml"
-        run: make task-bundle-snapshot TASK_REPO=$TASK_REPO TASK_TAG=$TAG ADD_TASK_TAG="$TAG_TIMESTAMP" TASKS=<( yq e ".spec.steps[].image? = \"$IMAGE_REPO:$TAG\"" $TASKS | yq 'select(. != null)')
+      #- name: Create and push the tekton bundle (quay.io/enterprise-contract/ec-task-bundle)
+      #  env:
+      #    TASK_REPO: quay.io/enterprise-contract/ec-task-bundle
+      #    TASKS: "tasks/verify-enterprise-contract/0.1/verify-enterprise-contract.yaml tasks/verify-definition/0.1/verify-definition.yaml"
+      #  run: make task-bundle-snapshot TASK_REPO=$TASK_REPO TASK_TAG=$TAG ADD_TASK_TAG="$TAG_TIMESTAMP" TASKS=<( yq e ".spec.steps[].image? = \"$IMAGE_REPO:$TAG\"" $TASKS | yq 'select(. != null)')
 
-      - name: Download statistics
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: hack/stats.sh
+      #- name: Download statistics
+      #  env:
+      #    GH_TOKEN: ${{ github.token }}
+      #  run: hack/stats.sh
 
-      - name: Configure statistics pages
-        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
+      #- name: Configure statistics pages
+      #  uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5.0.0
 
-      - name: Upload statistics
-        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
-        with:
-          path: stats
+      #- name: Upload statistics
+      #  uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
+      #  with:
+      #    path: stats
 
-      - name: Deploy statistics
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
+      #- name: Deploy statistics
+      #  uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
 
       - name: Delete snapshot release and tag
         run: |
