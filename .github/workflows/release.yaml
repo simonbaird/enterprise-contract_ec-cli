@@ -155,7 +155,12 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git tag -a -f -m 'Development snapshot' snapshot
-          git tag -a -m 'Version tag added automatically after snapshot build' $(hack/derive-version.sh)
+          AUTO_TAG=$(hack/derive-version.sh)
+          if [ -z "$(git tag -l $AUTO_TAG)" ]; then
+            git tag -a -m 'Version tag added automatically after snapshot build' $(hack/derive-version.sh)
+          else
+            echo "Not auto-tagging this build because somehow the tag $AUTO_TAG already exists! This should not happen!"
+          fi
           git push -f --tags
 
       - name: Release
