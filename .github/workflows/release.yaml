@@ -157,15 +157,31 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git tag -a -f -m 'Development snapshot' snapshot
-          source hack/add-auto-tag.sh
           git push -f --tags
 
-      - name: Release
+      - name: Add automatic tag
+        id: auto_tag
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | gh auth login --with-token
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          source hack/add-auto-tag.sh
+          git push -f --tags
+          echo "tag_name=$( hack/derive-version.sh )" >> "$GITHUB_OUTPUT"
+
+      - name: Rolling release
         uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564 # v2.0.4
         with:
           prerelease: true
           name: Rolling release
           body: Stable rolling release. Version can be determined by running `ec version`
           tag_name: snapshot
+          generate_release_notes: false
+          files: dist/*
+
+      - name: Versioned release
+        uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564 # v2.0.4
+        with:
+          tag_name: ${{ steps.auto_tag.outputs.tag_name }}
           generate_release_notes: false
           files: dist/*
