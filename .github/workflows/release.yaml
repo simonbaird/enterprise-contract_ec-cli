@@ -42,11 +42,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_COBRA: 1
         run: |
-          echo head_sha=$(gh api /repos/simonbaird/ec-cli/git/matching-refs/heads/main --jq '.[0].object.sha') >> "$GITHUB_OUTPUT"
+          echo head_sha=$(gh api /repos/simonbaird/ec-cli/git/matching-refs/heads/main --jq '.[0].object.sha') | tee -a "$GITHUB_OUTPUT"
       - name: Timestamp
         id: timestamp
         run: |
-          echo timestamp=$(date '+%s') >> "$GITHUB_OUTPUT"
+          echo timestamp=$(date '+%s') | tee -a "$GITHUB_OUTPUT"
 
   release:
 
@@ -167,7 +167,7 @@ jobs:
           git config --local user.name "GitHub Action"
           source hack/add-auto-tag.sh
           git push -f --tags
-          echo "tag_name=$( hack/derive-version.sh )" >> "$GITHUB_OUTPUT"
+          echo "tag_name=$( hack/derive-version.sh )" | tee -a "$GITHUB_OUTPUT"
 
       - name: Rolling release
         uses: softprops/action-gh-release@9d7c94cfd0a1f3ed45544c887983e9fa900f0564 # v2.0.4
