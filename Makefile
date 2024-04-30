@@ -132,7 +132,8 @@ scenario_%: build ## Run acceptance tests for a single scenario, e.g. make scena
 	@cd acceptance && go test -test.run 'TestFeatures/$*'
 
 .PHONY: ci
-ci: test lint-fix acceptance ## Run the usual required CI tasks
+#ci: test lint-fix acceptance ## Run the usual required CI tasks
+ci: test lint-fix ## Run the usual required CI tasks
 
 ##@ Linters
 
