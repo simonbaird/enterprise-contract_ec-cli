@@ -235,7 +235,8 @@ $(subst image_,push_image_,$(ALL_SUPPORTED_IMG_OS_ARCH)): image_$$(TARGETOS)_$$(
 
 .PHONY: dist-image
 # Depends on targets in the form of "image_{platform}_{arch}"
-dist-image: $(ALL_SUPPORTED_IMG_OS_ARCH) ## Build images for all supported platforms/architectures
+#dist-image: $(ALL_SUPPORTED_IMG_OS_ARCH) ## Build images for all supported platforms/architectures
+dist-image: image_linux_amd64 ## Build images for all supported platforms/architectures
 
 .PHONY: dist-image-push
 # Generates a list of image references in the form of
