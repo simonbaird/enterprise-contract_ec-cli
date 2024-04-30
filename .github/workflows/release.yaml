@@ -42,7 +42,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_COBRA: 1
         run: |
-          echo head_sha=$(gh api /repos/enterprise-contract/ec-cli/git/matching-refs/heads/main --jq '.[0].object.sha') >> "$GITHUB_OUTPUT"
+          echo head_sha=$(gh api /repos/simonbaird/ec-cli/git/matching-refs/heads/main --jq '.[0].object.sha') >> "$GITHUB_OUTPUT"
       - name: Timestamp
         id: timestamp
         run: |
@@ -110,20 +110,20 @@ jobs:
       - name: Build distribution
         run: make dist
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
+      #- name: Set up QEMU
+      #  uses: docker/setup-qemu-action@68827325e0b33c7199eb31dd4e31fbe9023e06e3 # v3.0.0
 
-      - name: Registry login (quay.io/enterprise-contract)
-        run: podman login -u ${{ secrets.BUNDLE_PUSH_USER_EC  }} -p ${{ secrets.BUNDLE_PUSH_PASS_EC }} quay.io
+      #- name: Registry login (quay.io/enterprise-contract)
+      #  run: podman login -u ${{ secrets.BUNDLE_PUSH_USER_EC  }} -p ${{ secrets.BUNDLE_PUSH_PASS_EC }} quay.io
 
-      - name: Create and push image (quay.io/enterprise-contract/ec-cli)
-        run: make dist-image-push IMAGE_TAG=$TAG IMAGE_REPO=$IMAGE_REPO ADD_IMAGE_TAG="snapshot $TAG_TIMESTAMP"
+      #- name: Create and push image (quay.io/enterprise-contract/ec-cli)
+      #  run: make dist-image-push IMAGE_TAG=$TAG IMAGE_REPO=$IMAGE_REPO ADD_IMAGE_TAG="snapshot $TAG_TIMESTAMP"
 
-      - name: Create and push the tekton bundle (quay.io/enterprise-contract/ec-task-bundle)
-        env:
-          TASK_REPO: quay.io/enterprise-contract/ec-task-bundle
-          TASKS: "tasks/verify-enterprise-contract/0.1/verify-enterprise-contract.yaml tasks/verify-definition/0.1/verify-definition.yaml"
-        run: make task-bundle-snapshot TASK_REPO=$TASK_REPO TASK_TAG=$TAG ADD_TASK_TAG="$TAG_TIMESTAMP" TASKS=<( yq e ".spec.steps[].image? = \"$IMAGE_REPO:$TAG\"" $TASKS | yq 'select(. != null)')
+      #- name: Create and push the tekton bundle (quay.io/enterprise-contract/ec-task-bundle)
+      #  env:
+      #    TASK_REPO: quay.io/enterprise-contract/ec-task-bundle
+      #    TASKS: "tasks/verify-enterprise-contract/0.1/verify-enterprise-contract.yaml tasks/verify-definition/0.1/verify-definition.yaml"
+      #  run: make task-bundle-snapshot TASK_REPO=$TASK_REPO TASK_TAG=$TAG ADD_TASK_TAG="$TAG_TIMESTAMP" TASKS=<( yq e ".spec.steps[].image? = \"$IMAGE_REPO:$TAG\"" $TASKS | yq 'select(. != null)')
 
       # TODO: Temporarily disabled because there are currently no releases. Let's re-enabled it
       # once we have one, or even better, adjust this so it can handle if there are no releases.
