@@ -61,7 +61,7 @@ jobs:
 
     env:
       IMAGE_REPO: quay.io/conforma/cli
-      TAG: gh-${{ github.sha }}
+      TAG: ${{ github.sha }}
       TAG_TIMESTAMP: ${{ github.sha }}-${{ needs.info.outputs.timestamp }}
 
     steps:
