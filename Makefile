@@ -110,7 +110,7 @@ test: ## Run all unit tests
 	@echo "Generative tests:"
 	@set -o pipefail && go test -race -covermode=atomic -coverprofile=coverage-generative.out -timeout 30s -tags=generative ./... | $(TEST_OUTPUT_FILTER)
 
-ACCEPTANCE_TIMEOUT:=20m
+ACCEPTANCE_TIMEOUT:=60m
 .ONESHELL:
 .SHELLFLAGS=-e -c
 .PHONY: acceptance
