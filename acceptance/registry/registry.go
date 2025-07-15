@@ -40,7 +40,9 @@ import (
 )
 
 // the image we're using to launch the stub image registry
-const registryImage = "docker.io/registry:2.8.1"
+// (could use docker.io/registry:3.0.0 here but
+// this should be less likely to hit rate limits.)
+const registryImage = "ghcr.io/distribution/distribution:3.0.0"
 
 type key int
 

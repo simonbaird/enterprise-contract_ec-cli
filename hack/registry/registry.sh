@@ -51,7 +51,9 @@ spec:
     spec:
       containers:
         - name: registry
-          image: docker.io/registry:2.8.1
+          # could use docker.io/registry:3.0.0 here but
+          # this should be less likely to hit rate limits
+          image: ghcr.io/distribution/distribution:3.0.0
           ports:
             - name: registry
               containerPort: %d
