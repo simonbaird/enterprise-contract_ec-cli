@@ -883,8 +883,8 @@ github.com/tchap/go-patricia/v2 v2.3.1 h1:6rQp39lgIYZ+MHmdEq4xzuk1t7OdC35z/xm0BG
 github.com/tchap/go-patricia/v2 v2.3.1/go.mod h1:VZRHKAb53DLaG+nA9EaYYiaEx6YztwDlLElMsnSHD4k=
 github.com/tektoncd/cli v0.38.0 h1:mH4xMxehfPOD2Ar0KZgWtb9Wh3r3S6wSAAZo8pTcruI=
 github.com/tektoncd/cli v0.38.0/go.mod h1:MLcBL6RH70XgKeaKV3l3YcvHjASyTELZACG9ZfVA5yg=
-github.com/tektoncd/pipeline v0.63.0 h1:QLkhYr970jgs6vmHopXz8pcXbz5c3i0a0FX7ggGtn94=
-github.com/tektoncd/pipeline v0.63.0/go.mod h1:HA7r0XJzhhcajNBcl0GErmcT5Omow1jVfLKwbVGjojY=
+github.com/tektoncd/pipeline v0.66.0 h1:WLL98YEgWzblSAD2mPbpZN97tkOC50wiftaW+8+6zTY=
+github.com/tektoncd/pipeline v0.66.0/go.mod h1:V3cyfxxc7b3GLT2a13GX2mWA86qmxWhh4mOp4gfFQwQ=
 github.com/tektoncd/triggers v0.29.0 h1:piRTJT1Sjq3xmGnR50V54oG0NlsszKETLxdCGhgSNQQ=
 github.com/tektoncd/triggers v0.29.0/go.mod h1:CHE2QhjYkECFCpvPLpiANhI/hIlJUxL03ulTNEgbT10=
 github.com/testcontainers/testcontainers-go v0.33.0 h1:zJS9PfXYT5O0ZFXM2xxXfk4J5UMw/kRiISng037Gxdw=
@@ -1323,8 +1323,8 @@ google.golang.org/grpc v1.29.1/go.mod h1:itym6AZVZYACWQqET3MqgPpjcuV5QH3BxFS3Iji
 google.golang.org/grpc v1.30.0/go.mod h1:N36X2cJ7JwdamYAgDz+s+rVMFjt3numwzf/HckM8pak=
 google.golang.org/grpc v1.31.0/go.mod h1:N36X2cJ7JwdamYAgDz+s+rVMFjt3numwzf/HckM8pak=
 google.golang.org/grpc v1.33.2/go.mod h1:JMHMWHQWaTccqQQlmk3MJZS+GWXOdAesneDmEnv2fbc=
-google.golang.org/grpc v1.66.0 h1:DibZuoBznOxbDQxRINckZcUvnCEvrW9pcWIE2yF9r1c=
-google.golang.org/grpc v1.66.0/go.mod h1:s3/l6xSSCURdVfAnL+TqCNMyTDAGN6+lZeVxnZR128Y=
+google.golang.org/grpc v1.67.0 h1:IdH9y6PF5MPSdAntIcpjQ+tXO41pcQsfZV2RxtQgVcw=
+google.golang.org/grpc v1.67.0/go.mod h1:1gLDyUQU7CTLJI90u3nXZ9ekeghjeM7pTDZlqFNg2AA=
 google.golang.org/protobuf v0.0.0-20200109180630-ec00e32a8dfd/go.mod h1:DFci5gLYBciE7Vtevhsrf46CRTquxDuWsQurQQe4oz8=
 google.golang.org/protobuf v0.0.0-20200221191635-4d8936d0db64/go.mod h1:kwYJMbMJ01Woi6D6+Kah6886xMZcty6N08ah7+eCXa0=
 google.golang.org/protobuf v0.0.0-20200228230310-ab0ca4ff8a60/go.mod h1:cfTl7dwQJ+fmap5saPgwCLgHXTUD7jkjRqWcaiX5VyM=
