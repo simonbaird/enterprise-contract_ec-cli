@@ -255,7 +255,16 @@ func (r conftestRunner) Run(ctx context.Context, fileList []string) (result []Ou
 	// we need to recreate it, this needs to remain the same as in
 	// runner.TestRunner's Run function
 	var engine *conftest.Engine
-	engine, err = conftest.LoadWithData(r.Policy, r.Data, r.Capabilities, r.Strict)
+	capabilities, err := conftest.LoadCapabilities(r.Capabilities)
+	if err != nil {
+		return
+	}
+	compilerOptions := conftest.CompilerOptions{
+		Strict:       r.Strict,
+		RegoVersion:  r.RegoVersion,
+		Capabilities: capabilities,
+	}
+	engine, err = conftest.LoadWithData(r.Policy, r.Data, compilerOptions)
 	if err != nil {
 		return
 	}
@@ -505,6 +514,7 @@ func (c conftestEvaluator) Evaluate(ctx context.Context, target EvaluationTarget
 				NoFail:        true,
 				Output:        c.outputFormat,
 				Capabilities:  c.CapabilitiesPath(),
+				RegoVersion:   "v1",
 			},
 		}
 	}

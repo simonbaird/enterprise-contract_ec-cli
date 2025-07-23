@@ -147,6 +147,7 @@ func newTestCommand() *cobra.Command {
 			}
 
 			var runner runner.TestRunner
+
 			if err := viper.Unmarshal(&runner); err != nil {
 				return fmt.Errorf("unmarshal parameters: %w", err)
 			}
