@@ -162,9 +162,9 @@ func newTestCommand() *cobra.Command {
 			results, resultsErr := runner.Run(ctx, fileList)
 			var exitCode int
 			if runner.FailOnWarn {
-				exitCode = output.ExitCodeFailOnWarn(results)
+				exitCode = results.ExitCodeFailOnWarn()
 			} else {
-				exitCode = output.ExitCode(results)
+				exitCode = results.ExitCode()
 			}
 
 			if !runner.Quiet || exitCode != 0 {
