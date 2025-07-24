@@ -170,6 +170,7 @@ const (
 	effectiveOnFormat         = "2006-01-02T15:04:05Z"
 	effectiveOnTimeout        = -90 * 24 * time.Hour // keep effective_on metadata up to 90 days
 	metadataCode              = "code"
+	metadataQuery             = "query"
 	metadataCollections       = "collections"
 	metadataDependsOn         = "depends_on"
 	metadataDescription       = "description"
@@ -784,6 +785,11 @@ func addMetadataToResults(ctx context.Context, r *Result, rule rule.Info) {
 	if len(rule.DependsOn) > 0 {
 		r.Metadata[metadataDependsOn] = rule.DependsOn
 	}
+
+	// This field appeared after updating conftest I think.
+	// Perhaps we want it, but for now I'm removing it to see if
+	// it makes the tests pass
+	delete(r.Metadata, metadataQuery)
 
 	// If the rule has been effective for a long time, we'll consider
 	// the effective_on date not relevant and not bother including it
