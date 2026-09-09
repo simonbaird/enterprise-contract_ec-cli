@@ -16,8 +16,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -47,8 +47,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -78,8 +78,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -110,8 +110,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -147,8 +147,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -182,8 +182,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -356,8 +356,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
@@ -389,8 +389,8 @@ Feature: Verify Enterprise Contract Tekton Tasks
         "sources": [
           {
             "policy": [
-              "github.com/conforma/policy//policy/release?ref=release-v0.8",
-              "github.com/conforma/policy//policy/lib?ref=release-v0.8"
+              "github.com/conforma/policy//policy/release?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a",
+              "github.com/conforma/policy//policy/lib?ref=b1f08f104e7678a8f40ed792e40c0799c1198e7a"
             ],
             "config": {
               "include": [
